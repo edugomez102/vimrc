@@ -7,7 +7,11 @@
 " ┌──────────────┐
 " │ Plug manager │
 " └──────────────┘
-call plug#begin('~/.vim/plugged')
+
+" set plugin dir
+let s:plugged_path = '~/.vim/plugged'
+
+call plug#begin(s:plugged_path)
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -126,10 +130,12 @@ Plug 'jeetsukumaran/vim-markology'
 
 " Improve search
 Plug 'osyo-manga/vim-anzu'
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+if isdirectory("plugged/vim-anzu")
+	nmap n <Plug>(anzu-n-with-echo)
+	nmap N <Plug>(anzu-N-with-echo)
+	nmap * <Plug>(anzu-star-with-echo)
+	nmap # <Plug>(anzu-sharp-with-echo)
+endif
 
 " Generate ctags files
 " Plug 'ludovicchabant/vim-gutentags'
@@ -316,7 +322,7 @@ if has_key(plugs, "omnisharp-vim")
 		autocmd CursorHold *.cs OmniSharpTypeLookup
 		autocmd FileType cs nnoremap <buffer> <Leader>c :OmniSharpDocumentation<CR>
 		autocmd FileType cs nnoremap <buffer> <Leader>x :OmniSharpPreviewDefinition<CR>
-		set completeopt=longest,menuone,preview,popuphidden
+		silent! set completeopt=longest,menuone,preview,popuphidden
 	augroup END
 endif
 
@@ -399,8 +405,11 @@ nmap <leader>c <Plug>window:quickfix:loop
 map K <nop>
 
 " Clap maps
-" nnoremap <C-p> :ls<cr>:b<Space>
-nnoremap <c-p> :Clap buffers<cr>
+if isdirectory("plugged/vim-clap")
+	nnoremap <c-p> :Clap buffers<cr>
+else
+	nnoremap <C-p> :ls<cr>:b<Space>
+endif
 nnoremap <c-h> :Clap lines<cr>
 nnoremap <c-j> :Clap files<cr>
 nnoremap <c-n> :Clap filer<cr>
@@ -445,7 +454,7 @@ hi Folded ctermbg=59
 " ┌──────────────────┐
 " │ Complete options │
 " └──────────────────┘
-set completeopt+=noselect,menuone,longest,noinsert
+silent! set completeopt+=noselect,menuone,longest,noinsert
 set omnifunc=syntaxcomplete#Complete
 set completeopt-=preview
 " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
