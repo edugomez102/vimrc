@@ -184,6 +184,7 @@ function! VimscriptPlugins()
 	PlugInstall vim-matchit vim-polyglot lightline.vim vim-gitbranch tcomment_vim vim-eunuch vim-easy-align vim-textobj-line vim-pairify vim-obsession nerdtree nerdtree-git-plugin vim-markology vim-anzu auto-pairs vim-surround vim-repeat vim-matchit gruvbox vim-code-dark iceberg.vim
 endfunction
 
+command! VimscriptPlugins call VimscriptPlugins()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ┌────────┐
