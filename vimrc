@@ -179,7 +179,7 @@ call plug#end()
 " ┌────────┐
 " │ Colors │
 " └────────┘
-colorscheme codedark
+silent! colorscheme codedark
 set background=dark
 syntax enable
 
