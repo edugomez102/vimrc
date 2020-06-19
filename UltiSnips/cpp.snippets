@@ -1,0 +1,305 @@
+# global !p
+# def junit(snip):
+# 	if snip.opt("g:ultisnips_java_junit", "") == "3":
+# 		snip += ""
+# 	else:
+# 		snip.rv += "@Test\n\t"
+#
+# def nl(snip):
+# 	if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
+# 		snip += ""
+# 	else:
+# 		snip.rv += " "
+# def getArgs(group):
+# 	import re
+# 	word = re.compile('[a-zA-Z0-9><.]+ \w+')
+# 	return [i.split(" ") for i in word.findall(group) ]
+#
+# def camel(word):
+# 	if not word: return ''
+# 	return word[0].upper() + word[1:]
+#
+# def mixedCase(word):
+# 	if not word: return ''
+# 	return word[0].lower() + word[1:]
+#
+# endglobal
+#
+snippet for "for" b
+for($1; $2; $3){
+	$0
+}
+endsnippet
+
+snippet fori "for loop (for)"
+for(int ${1:i} = ${2:0}; $1 ${3:< count}; ${4:$1}${5:++}){
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fore "for (each)" b
+for ($1 : $2){
+	$0
+}
+endsnippet
+
+snippet dow "Do While" b
+do{
+	$1
+}while($0);
+endsnippet
+
+snippet while "while" b
+while($1){
+	$0
+}
+endsnippet
+
+snippet if "if" b
+if($1){
+	$0${VISUAL}
+}
+endsnippet
+
+snippet eli "else if" b
+else if($1){
+	$0
+}
+endsnippet
+
+snippet else "else" b
+else{
+	$0
+}
+endsnippet
+
+snippet sw "switch" b
+switch ($1){
+	case $2: $0
+}
+endsnippet
+
+
+snippet pr "private" b
+private $0
+endsnippet
+
+snippet pu "public" b
+public $0
+endsnippet
+
+snippet re "return" b
+return $0
+endsnippet
+
+snippet st "static"
+static $0
+endsnippet
+
+snippet br "break"
+break;
+endsnippet
+snippet vec "vector" i
+vector<$1>$0
+endsnippet
+
+snippet iiun "include & using"
+#include <iostream>
+$1
+using namespace std;
+$0
+endsnippet
+
+snippet define "ifndef define ytal" b
+#ifndef ${1/(\w+).*/\U$0\E/}_h
+//${1:`!p snip.rv = snip.basename or "name"`}_h 
+#define ${1/(\w+).*/\U$0\E/}_h
+$0
+#endif
+endsnippet
+
+snippet incl "include"
+#include <$1>$0
+endsnippet
+
+snippet incl" "include comilla"
+#include "$1"$0
+endsnippet
+
+snippet co "cout" b
+cout << $1;
+endsnippet
+
+snippet col "cout+endl" b
+cout << $1 << endl;
+endsnippet
+
+snippet col" "cout+endl" b
+cout << "$1"$2 << endl;
+endsnippet
+
+snippet en "endl" b
+cout << endl;
+endsnippet
+
+snippet ci "cin" b
+cin >> $0;
+endsnippet
+
+snippet fun "function" b
+${1:void} `!p snip.rv = snip.basename or "name"`::${3:function_name}($4){
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fund "function declaration" b
+${1:void} ${2:function_name}($3);
+endsnippet
+
+snippet main "main" b
+int main(int argc, char *argv[]){
+	$1
+	return 0;
+}
+endsnippet
+
+snippet classd "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+	private:
+		${0:/* data */}
+	public:
+		${1/(\w+).*/$1/}(${2:arguments});
+		${1/(\w+).*/$1/}(const ${1/(\w+).*/$1/} &);
+		~${1/(\w+).*/$1/}();
+		${1/(\w+).*/$1/} & operator=(const ${1/(\w+).*/$1/} &);
+	
+	friend ostream & operator<<(ostream &, const ${1/(\w+).*/$1/} &);
+
+};
+endsnippet
+
+global !p
+def split_line(text):
+	import textwrap
+	lines = textwrap.wrap(text, 78 - 19)
+	output = list()
+	for line in lines:
+		output.append('*' + ' '*19 + line)
+	snip_line = snip.tabstops[4].end[0]
+	snip.buffer.append(output, snip_line + 1)
+	del snip.buffer[snip_line]
+
+def get_args(arglist):
+	args = [arg.strip() for arg in arglist.split(',') if arg]
+	return args
+endglobal
+
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+snippet head "File Header" b
+/******************************************************************************
+* File:             `!p snip.rv = fn`
+*
+* Author:           ${2}  
+* Created:          `date +%m/%d/%y` 
+* Description:      ${4:${VISUAL}}
+*****************************************************************************/
+${0}
+endsnippet
+
+snippet todo "todo" b
+//TODO(`!v strftime("%d/%m/%Y")`): ${1:implementar} 
+endsnippet
+
+snippet preg "Pregunta" b
+//Pregunta(`!v strftime("%d/%m/%Y")`):$0
+endsnippet
+
+post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
+snippet func "Function Header" 
+/******************************************************************************
+* Function:         $1
+* Description:      ${4:${VISUAL}}
+* Where:`!p 
+snip.rv = ""
+snip >> 2
+
+args = get_args(t[2])
+if args:
+	for arg in args:
+		snip.rv += '\n' + '*' + ' '*19 + arg + ' - TODO'
+snip << 2
+`
+* Return:           $5
+* Error:            $6
+*****************************************************************************/
+${1}($2){
+	${0}
+}
+endsnippet
+
+snippet classc "class canonical" b
+${1:`!p snip.rv = snip.basename or "name"`}::${1/(\w+).*/$1/}(){
+}
+${1/(\w+).*/$1/}::${1/(\w+).*/$1/}($2){
+	`!p
+# args = get_args(t[2])
+# if args:
+# 	for arg in args:
+# 		snip.rv += '\n' + '\t ' + arg + ' - TODO'
+# snip << 2
+# `
+}
+
+${1/(\w+).*/$1/}::${1/(\w+).*/$1/}(const ${1/(\w+).*/$1/} &t){
+}
+${1/(\w+).*/$1/}::~${1/(\w+).*/$1/}(){
+}
+${1/(\w+).*/$1/} & ${1/(\w+).*/$1/}::operator=(const ${1/(\w+).*/$1/} &t){
+	if(this!=&t){
+	}
+	return *this;
+}
+ostream & operator<<(ostream &os, const ${1/(\w+).*/$1/} &c){
+	
+	return os;
+}
+//Fin canonicas
+endsnippet
+
+snippet col"black "cout comillas black" b
+cout << "\033[1;30m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"red "cout comillas red" b
+cout << "\033[1;31m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"green "cout comillas green" b
+cout << "\033[1;32m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"yellow "cout comillas yellow" b
+cout << "\033[1;33m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"blue "cout comillas blue" b
+cout << "\033[1;34m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"magenta "cout comillas magenta" b
+cout << "\033[1;35m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"cyan "cout comillas cyan" b
+cout << "\033[1;36m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet col"white "cout comillas white" b
+cout << "\033[1;36m$1\033[0m"$2 << endl;
+endsnippet
+
+snippet sys "system" b
+system("$1");
+endsnippet
+

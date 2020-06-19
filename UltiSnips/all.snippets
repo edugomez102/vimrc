@@ -1,0 +1,48 @@
+snippet date "DD-MM-YYYY" w
+`!v strftime("%d/%m/%Y")`
+endsnippet
+
+snippet box "Box"
+`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+│ $1 │
+`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+
+snippet fecha "Month DD, YYYY" w
+`!v strftime("%A, %_d de %B de %Y")`
+endsnippet
+
+# Terminal Color
+
+snippet cterm_black "Terminal black" i
+"\033[1;30m$1\033[0m"$2
+endsnippet
+
+snippet cterm_red "Terminal red" i
+"\033[1;31m$1\033[0m"$2
+endsnippet
+
+snippet cterm_green "Terminal green" i
+"\033[1;32m$1\033[0m"$2
+endsnippet
+
+snippet cterm_yellow "Terminal yellow" i
+"\033[1;33m$1\033[0m"$2
+endsnippet
+
+snippet cterm_blue "Terminal blue" i
+"\033[1;34m$1\033[0m"$2
+endsnippet
+
+snippet cterm_magenta "Terminal magenta" i
+"\033[1;35m$1\033[0m"$2
+endsnippet
+
+snippet cterm_cyan "Terminal cyan" i
+"\033[1;36m$1\033[0m"$2
+endsnippet
+
+snippet cterm_white "Terminal white" i
+"\033[1;36m$1\033[0m"$2
+endsnippet
