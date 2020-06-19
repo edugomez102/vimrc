@@ -181,7 +181,7 @@ Plug 'edugomez102/vim-wakatime'
 call plug#end()
 
 function! VimscriptPlugins()
-	PlugInstall vim-matchit vim-polyglot lightline.vim vim-gitbranch tcomment_vim vim-eunuch vim-easy-align vim-textobj-line vim-pairify vim-obsession nerdtree nerdtree-git-plugin vim-markology vim-anzu auto-pairs vim-surround vim-repeat vim-matchit gruvbox vim-code-dark iceberg.vim
+	PlugInstall vim-matchit vim-polyglot lightline.vim vim-gitbranch tcomment_vim vim-eunuch vim-easy-align vim-textobj-line vim-textobj-user vim-pairify vim-obsession nerdtree nerdtree-git-plugin vim-markology vim-anzu auto-pairs vim-surround vim-repeat vim-matchit gruvbox vim-code-dark iceberg.vim
 endfunction
 
 command! VimscriptPlugins call VimscriptPlugins()
@@ -224,7 +224,11 @@ set breakindent
 
 " List Config
 set list
-set listchars=tab:┊\ ,space:•,nbsp:␣,trail:⌁,precedes:«,extends:»
+try
+	set listchars=tab:┊\ ,space:•,nbsp:␣,trail:⌁,precedes:«,extends:»
+catch
+	set list!
+endtry
 " set listchars+=eol:↲
 hi SpecialKey ctermfg=238
 hi NonText ctermfg=239
