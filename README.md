@@ -8,8 +8,10 @@
     git clone https://github.com/edugomez102/vimrc
     mv vimrc .vim && cd .vim
     mkdir undo-dir sessions
+    vim -c VimscrptPlugins -c qa
 
-then open vim and run `:PlugInstall` to install all the plugins  
+then open vim and run `:PlugInstall` if you want to install non-vimscript
+plugins  
 note that some of them require dependencies
 
 My recommendation for LSP autocompletition:
