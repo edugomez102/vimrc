@@ -170,7 +170,7 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'wakatime/vim-wakatime'
+Plug 'edugomez102/vim-wakatime'
 
 call plug#end()
 
