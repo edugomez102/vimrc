@@ -9,7 +9,7 @@
 " └──────────────┘
 
 " set plugin dir
-let s:plugged_path = '~/.vim/plugged'
+let s:plugged_path = $HOME . '/.vim/plugged'
 
 call plug#begin(s:plugged_path)
 
@@ -130,7 +130,7 @@ Plug 'jeetsukumaran/vim-markology'
 
 " Improve search
 Plug 'osyo-manga/vim-anzu'
-if isdirectory("plugged/vim-anzu")
+if isdirectory(s:plugged_path . "/vim-anzu")
 	nmap n <Plug>(anzu-n-with-echo)
 	nmap N <Plug>(anzu-N-with-echo)
 	nmap * <Plug>(anzu-star-with-echo)
@@ -190,7 +190,7 @@ command! VimscriptPlugins call VimscriptPlugins()
 " ┌────────┐
 " │ Colors │
 " └────────┘
-silent! colorscheme codedark
+silent! colorscheme codedark 
 set background=dark
 syntax enable
 
@@ -414,7 +414,7 @@ nmap <leader>c <Plug>window:quickfix:loop
 map K <nop>
 
 " Clap maps
-if isdirectory("plugged/vim-clap")
+if isdirectory(s:plugged_path . "/vim-clap")
 	nnoremap <c-p> :Clap buffers<cr>
 else
 	nnoremap <C-p> :ls<cr>:b<Space>
