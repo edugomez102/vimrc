@@ -344,12 +344,17 @@ set ttimeoutlen=50
 let g:lightline = {
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
-			\				[ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\				[ 'gitbranch', 'session', 'readonly', 'filename', 'modified' ] ]
 			\ },
 			\ 'component_function': {
-			\   'gitbranch': 'gitbranch#name'
+			\   'gitbranch': 'gitbranch#name',
+			\   'session' : 'LigthlineSessionstatus'
 			\ },
 			\ }
+
+function! LigthlineSessionstatus()
+	return ObsessionStatus()
+endfunction
 
 " ┌────────┐
 " │ Remaps │
@@ -457,8 +462,19 @@ set foldmethod=syntax
 " set foldnestmax=10
 set nofoldenable
 " set foldlevel=2
-hi Folded ctermfg=230
-hi Folded ctermbg=59
+hi Folded ctermbg=236 ctermfg=108 cterm=NONE
+function! NeatFoldText()
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+
+set foldtext=NeatFoldText()
 
 " ┌──────────────────┐
 " │ Complete options │
@@ -512,6 +528,11 @@ function! GrepBuffers (expression)
 endfunction
 
 command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
+
+function! Reformat()
+	%s/\r//g
+	%retab!
+endfunction
 
 " ┌──────────────┐
 " │ Dictionaries │
