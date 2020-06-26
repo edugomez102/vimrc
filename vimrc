@@ -190,9 +190,9 @@ command! VimscriptPlugins call VimscriptPlugins()
 " ┌────────┐
 " │ Colors │
 " └────────┘
-silent! colorscheme codedark 
-set background=dark
 syntax enable
+set background=dark
+silent! colorscheme codedark 
 
 " ┌────────────┐
 " │ Tab config │
