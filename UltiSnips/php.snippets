@@ -142,7 +142,7 @@ private static function ${1:name}(${2:$param})
 $0
 endsnippet
 
-snippet fu "Function snip" b
+snippet fun "Function snip" b
 function ${1:name}(${2:$param})
 {
 	${VISUAL}${3:return null;}
@@ -305,11 +305,11 @@ snippet br "<br>" b
 echo "<br>";
 endsnippet
 
-snippet fun "function" b
-function ${1:name}($2){
-	$0
-	return void;
-}
+snippet doc "doc comment" b
+/**
+ * $1
+ *
+ * @author $2
+ */
 endsnippet
-
 # :vim:ft=snippets:

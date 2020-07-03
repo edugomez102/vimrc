@@ -143,6 +143,14 @@ endsnippet
 # print($0);
 # endsnippet
 
+snippet gett "getter" b
+public ${1:type} Get${2/\w+\s*/\u$0/g}(){ return $2; }
+endsnippet
+
+snippet sett "setter" b
+public ${1:type} Set${2/\w+\s*/\u$0/g}(){ this.$2 = $2; }
+endsnippet
+
 snippet dl "Debug.Log" b
 Debug.Log($1);
 endsnippet
@@ -160,4 +168,12 @@ endsnippet
 
 snippet todo "todo" b
 //TODO(`!v strftime("%d/%m/%Y")`): ${1:implementar} 
+endsnippet
+
+snippet doc "doc comment" b
+/// <summary>
+/// $1
+/// </summary>
+/// <author> $2 </author>
+/// <date> !v strftime("%d/%m/%Y") </date>
 endsnippet
