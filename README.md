@@ -10,6 +10,8 @@
     mkdir undo-dir sessions
     vim -c VimscriptPlugins -c qa
 
+or just clone the repo and run `vimrc/install.sh`
+
 then open vim and run `:PlugInstall` if you want to install non-vimscript
 plugins  
 note that some of them require dependencies
