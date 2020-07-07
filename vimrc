@@ -30,9 +30,9 @@ Plug 'itchyny/vim-gitbranch'
 
 " Snippets
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-H>"
+" let g:UltiSnipsExpandTrigger="<F11>"
+" let g:UltiSnipsJumpForwardTrigger="<F11>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-H>"
 let g:UltiSnipsEditSplit="vertical"
 let g:ultisnips_javascript = {
 			\ 'keyword-spacing': 'always',
@@ -78,6 +78,17 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  " if (index(['vim','help'], &filetype) >= 0)
+  "   execute 'h '.expand('<cword>')
+  " else
+    call CocAction('doHover')
+  " endif
+endfunction
 
 " File tree
 Plug 'liuchengxu/vista.vim'
@@ -421,7 +432,7 @@ map <F8> :set foldmethod=syntax<cr>
 " map <leader>a :bufdo :args ## %<cr>
 nmap <leader>c <Plug>window:quickfix:loop
 	" disable K
-map K <nop>
+" map K <nop>
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
