@@ -147,13 +147,19 @@ cin >> $0;
 endsnippet
 
 snippet fun "function" b
-${1:void} `!p snip.rv = snip.basename or "name"`::${3:function_name}($4){
+${1:void} ${2:function_name}($3){
 	${VISUAL}$0
 }
 endsnippet
 
-snippet fund "function declaration" b
-${1:void} ${2:function_name}($3);
+snippet me "method" b
+${1:void} `!p snip.rv = snip.basename or "name"`::${3:method_name}($4){
+	${VISUAL}$0
+}
+endsnippet
+
+snippet med "method declaration" b
+${1:void} ${2:method_name}($3);
 endsnippet
 
 snippet main "main" b

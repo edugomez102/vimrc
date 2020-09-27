@@ -113,6 +113,8 @@ Plug 'neomake/neomake'
 
 " Version control changes
 Plug 'mhinz/vim-signify'
+" Undotree
+Plug 'mbbill/undotree'
 
 " Auto sessions
 Plug 'tpope/vim-obsession'

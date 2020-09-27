@@ -175,5 +175,9 @@ snippet doc "doc comment" b
 /// $1
 /// </summary>
 /// <author> $2 </author>
-/// <date> !v strftime("%d/%m/%Y") </date>
+/// <date>`!v strftime("%d/%m/%Y")`</date>
+endsnippet
+
+snippet cwl "Console.WriteLine" b
+Console.WriteLine($0);
 endsnippet
