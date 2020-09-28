@@ -1,4 +1,4 @@
-"    ____ ___  __  __   _   __(_)___ ___  __________
+"       __  __   _   __(_)___ ___  __________
 "   / __ `__ \/ / / /  | | / / / __ `__ \/ ___/ ___/
 "  / / / / / / /_/ /   | |/ / / / / / / / /  / /__  
 " /_/ /_/ /_/\__, /    |___/_/_/ /_/ /_/_/   \___/  
@@ -93,6 +93,7 @@ endfunction
 " File tree
 Plug 'liuchengxu/vista.vim'
 let g:vista_stay_on_open = 0
+let g:vista_default_executive = 'coc'
 
 " Vim textobjects
 Plug 'kana/vim-textobj-line'
@@ -105,11 +106,11 @@ endif
 " inoremap <S-tab> <ESC>la
 
 Plug 'neomake/neomake'
-    augroup my_neomake_signs
-        au!
-        autocmd ColorScheme *
-            \ hi NeomakeWarningSign ctermfg=186
-    augroup END
+augroup my_neomake_signs
+	au!
+	autocmd ColorScheme *
+				\ hi NeomakeWarningSign ctermfg=186
+augroup END
 
 " Version control changes
 Plug 'mhinz/vim-signify'
@@ -125,7 +126,7 @@ let NERDTreeRespectWildIgnore=1
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
 			\ "Modified"  : "●",
 			\ "Staged"    : "✚",
 			\ "Untracked" : "*",
@@ -169,6 +170,7 @@ Plug 'drmingdrmer/vim-toggle-quickfix'
 Plug 'jiangmiao/auto-pairs'
 	" Surround object
 Plug 'tpope/vim-surround'
+
 Plug 'tpope/vim-repeat'
 	" UI Color picker
 Plug 'DougBeney/pickachu'
@@ -190,11 +192,17 @@ let g:vimtex_view_general_viewer = 'okular'
 " C#
 Plug 'OmniSharp/omnisharp-vim'
 
+Plug 'MaskRay/ccls'
+
 " Some plugin depenencies
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'edugomez102/vim-wakatime'
+
+" Plug 'caenrique/nvim-toggle-terminal'
+
+
+" Plug 'edugomez102/vim-wakatime'
 
 call plug#end()
 
@@ -243,7 +251,11 @@ set breakindent
 " List Config
 set list
 try
-	set listchars=tab:┊\ ,space:•,nbsp:␣,trail:⌁,precedes:«,extends:»
+	if has("nvim")
+		set listchars=tab:┊\ ,nbsp:␣,trail:⌁,precedes:«,extends:»
+	else
+		set listchars=tab:┊\ ,space:•,nbsp:␣,trail:⌁,precedes:«,extends:»
+	endif
 catch
 	set list!
 endtry
@@ -590,4 +602,16 @@ runtime! ftplugin/man.vim
 " │ Misc │
 " └──────┘
 map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
+
+if has("win32")
+	tnoremap jk <c-\><c-n>
+	" echo "win"
+	set shell=powershell.exe
+	autocmd TermOpen * startinsert
+	" autocmd TermOpen * set nonumber
+	" autocmd TermOpen * set norelativenumber
+endif
+
+
+
 
