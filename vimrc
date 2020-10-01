@@ -201,8 +201,11 @@ Plug 'roxma/vim-hug-neovim-rpc'
 
 " Plug 'caenrique/nvim-toggle-terminal'
 
-
 " Plug 'edugomez102/vim-wakatime'
+
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'rbong/vim-flog'
 
 call plug#end()
 
@@ -606,7 +609,7 @@ map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
 if has("win32")
 	tnoremap jk <c-\><c-n>
 	" echo "win"
-	set shell=powershell.exe
+	" set shell=powershell.exe
 	autocmd TermOpen * startinsert
 	" autocmd TermOpen * set nonumber
 	" autocmd TermOpen * set norelativenumber
