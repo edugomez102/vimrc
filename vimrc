@@ -141,6 +141,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let NERDTreeDirArrowExpandable="\u00a0"
 let NERDTreeDirArrowCollapsible="\u00a0"
 " let g:webdevicons_conceal_nerdtree_brackets = 1
+
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -177,6 +178,11 @@ Plug 'DougBeney/pickachu'
 
 " Languages
 
+" Debugger
+Plug 'puremourning/vimspector'
+let g:vimspector_enable_mappings = 'HUMAN'
+" packadd! vimspector
+
 " Html imrovements
 Plug 'ap/vim-css-color'
 Plug 'mattn/emmet-vim'
@@ -206,6 +212,9 @@ Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
+
+Plug 'https://github.com/Dimercel/todo-vim'
+" TODO hola
 
 call plug#end()
 
@@ -394,13 +403,12 @@ endfunction
 " └────────┘
 
 let mapleader = "\<Space>"
+
 	" Close the current buffer
 map <leader>bd : bp\|bd #<cr>
-	" Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
+map <leader>tn :tabedit %<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
@@ -413,25 +421,21 @@ nmap <s-S> "_D
 nmap <leader>w :w!<cr>
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
-nnoremap <leader>j :find ./**/
+" nnoremap <leader>j :find ./**/
 nnoremap <leader>s :vimgrep  ./**/*<left><left><left><left><left><left><left>
 map Y y$
 map Q @:
 
-map <leader>d :SignifyHunkDiff<cr>
-
 " Insert Mode
 imap <c-e> <Del>
 imap jk <Esc>
+imap JK <Esc>
 
 "toggle quickfix
 nmap <F3> <Plug>window:quickfix:loop
 
-map <leader>ee :NERDTreeToggle<cr>
-
 map <leader>qa :qall<cr>
-map <leader>db :WakaTimeToday<cr>
-map <leader>qs :ClapMksession<cr>
+
 " Espejar lineas(hay que empezar una linea antes)
 map <leader>rv :g/^/m'<<cr> :noh<cr>
 
@@ -440,16 +444,34 @@ nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : 'o<Esc>'
 
 " borrar linea y pegar
 map gp pk"_dd
-map :: q:
+map <leader>; q:
+
+" vimdiff
+nmap <leader>gj :diffget //2<cr>
+nmap <leader>gk :diffget //3<cr>
 
 " clean quickfix
 nmap <leader>cf :cexpr []<cr>
 
 map <F8> :set foldmethod=syntax<cr>
 " map <leader>a :bufdo :args ## %<cr>
+
+
+" Plugin mappings
+" ***************
+
+map <leader>e :NERDTreeToggle<cr>
+
+" autocmd FileType nerdtree :set norelativenumber
+" map <leader>db :WakaTimeToday<cr>
+map <leader>qs :ClapMksession<cr>
+
+nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
+nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
+map <leader>d :SignifyHunkDiff<cr>
 nmap <leader>c <Plug>window:quickfix:loop
-	" disable K
-" map K <nop>
+
+map gs :tab :G<cr>
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
@@ -458,7 +480,15 @@ else
 	nnoremap <C-p> :ls<cr>:b<Space>
 endif
 nnoremap <c-h> :Clap lines<cr>
-nnoremap <c-j> :Clap files<cr>
+
+" Poner en funcion de si estamos en un repo o no
+	" lo devuelve como un string con valor true
+let s:inside_git = system('git rev-parse --is-inside-work-tree')
+if s:inside_git =~ "true"
+	nnoremap <c-j> :Clap git_files<cr>
+else
+	nnoremap <c-j> :Clap files<cr>
+endif
 nnoremap <c-n> :Clap filer<cr>
 nnoremap <c-k> :Clap tags<cr>
 nnoremap <leader>f :Clap<cr>
@@ -484,9 +514,9 @@ nnoremap <Space>r :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap p p=`]
 nnoremap P P=`]
 
-
 nmap <leader>t :call Toggle()<CR>
 vmap <leader>t <ESC>:call Toggle()<CR>
+" TODO choto 
 
 " ┌───────┐
 " │ Folds │
