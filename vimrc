@@ -157,11 +157,15 @@ if isdirectory(s:plugged_path . "/vim-anzu")
 	nmap # <Plug>(anzu-sharp-with-echo)
 endif
 
+" Improve grep
+Plug 'dkprice/vim-easygrep'
+let g:EasyGrepReplaceWindowMode = 2
+
 " Generate ctags files
 " Plug 'ludovicchabant/vim-gutentags'
 
 " Fuzzy finder
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
 
 " Vim ghost
 " Plug 'https://github.com/raghur/vim-ghost'
@@ -210,6 +214,8 @@ Plug 'roxma/vim-hug-neovim-rpc'
 " Plug 'edugomez102/vim-wakatime'
 
 Plug 'tpope/vim-fugitive'
+autocmd FileType fugitive nmap do dd<c-w>k
+
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
 
@@ -459,8 +465,10 @@ map <F8> :set foldmethod=syntax<cr>
 
 " Plugin mappings
 " ***************
-
 map <leader>e :NERDTreeToggle<cr>
+
+" Vim fugitive
+map <leader>gc :Git checkout<space>
 
 " autocmd FileType nerdtree :set norelativenumber
 " map <leader>db :WakaTimeToday<cr>
