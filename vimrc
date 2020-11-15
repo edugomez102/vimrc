@@ -22,8 +22,6 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'sheerun/vim-polyglot'
 
 " Appearence
-	" Nerdfonts icons
-Plug 'ryanoasis/vim-devicons'
 	" Status line
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -127,6 +125,9 @@ Plug 'tpope/vim-obsession'
 
 " File tree
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" Nerdfonts icons
+Plug 'ryanoasis/vim-devicons'
 let NERDTreeRespectWildIgnore=1
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
@@ -145,10 +146,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 			\ }
 let NERDTreeDirArrowExpandable="\u00a0"
 let NERDTreeDirArrowCollapsible="\u00a0"
-" let g:webdevicons_conceal_nerdtree_brackets = 1
-
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Visible marks
 Plug 'jeetsukumaran/vim-markology'
