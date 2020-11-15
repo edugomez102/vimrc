@@ -56,7 +56,7 @@ nmap ga <Plug>(EasyAlign)
 Plug 'akho/numbers.vim'
 let g:numbers_exclude = ['nerdtree', 'vista', 'clap']
 " let g:numbers_exclude_buftypes = ['terminal']
-let g:numbers_exclude_buftypes = [ 'acwrite', 'help', 'nofile', 'nowrite', 'quickfix', 'terminal' ]
+let g:numbers_exclude_buftypes = [ 'acwrite',  'nofile', 'quickfix', 'terminal' ]
 
 " Popup menu
 Plug 'liuchengxu/vim-clap'
@@ -152,6 +152,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Visible marks
 Plug 'jeetsukumaran/vim-markology'
+
+let g:markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let g:markology_ignore_type="hprqm"
+nmap mm :MarkologyLocationList<cr>
 
 " Improve search
 Plug 'osyo-manga/vim-anzu'
