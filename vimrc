@@ -53,6 +53,11 @@ Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+Plug 'akho/numbers.vim'
+let g:numbers_exclude = ['nerdtree', 'vista', 'clap']
+" let g:numbers_exclude_buftypes = ['terminal']
+let g:numbers_exclude_buftypes = [ 'acwrite', 'help', 'nofile', 'nowrite', 'quickfix', 'terminal' ]
+
 " Popup menu
 Plug 'liuchengxu/vim-clap'
 let g:clap_layout = { 'relative': 'editor', 'width': '80%', 'col' : '4%' , 'row' : '10%', 'height': '50%'}
@@ -288,12 +293,12 @@ set fillchars+=vert:\▏
 " ┌────────────────┐
 " │ Number options │
 " └────────────────┘
-set number relativenumber
-augroup numbertoggle
-	autocmd!
-	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+" set number relativenumber
+" augroup numbertoggle
+" 	autocmd!
+" 	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+" 	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" augroup END
 
 
 " ┌──────────────┐
@@ -475,6 +480,8 @@ map <leader>gc :Git checkout<space>
 " map <leader>db :WakaTimeToday<cr>
 map <leader>qs :ClapMksession<cr>
 
+map <leader>tt :CocCommand terminal.Toggle<cr>
+
 nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
 map <leader>d :SignifyHunkDiff<cr>
@@ -523,10 +530,6 @@ nnoremap <Space>r :.,$s/\<<C-r>=expand('<cword>')<CR>\>//gc<left><left><left>
 " map <F7> gg=G<C-o><C-o>
 nnoremap p p=`]
 nnoremap P P=`]
-
-nmap <leader>t :call Toggle()<CR>
-vmap <leader>t <ESC>:call Toggle()<CR>
-" TODO choto 
 
 " ┌───────┐
 " │ Folds │
@@ -585,22 +588,22 @@ set tm=500
 " │ Functions │
 " └───────────┘
 " Funcion para buscar en todos los buffers
-function! BuffersList()
-  let all = range(0, bufnr('$'))
-  let res = []
-  for b in all
-    if buflisted(b)
-      call add(res, bufname(b))
-    endif
-  endfor
-  return res
-endfunction
+" function! BuffersList()
+"   let all = range(0, bufnr('$'))
+"   let res = []
+"   for b in all
+"     if buflisted(b)
+"       call add(res, bufname(b))
+"     endif
+"   endfor
+"   return res
+" endfunction
 
-function! GrepBuffers (expression)
-  exec 'vimgrep/'.a:expression.'/ '.join(BuffersList())
-endfunction
+" function! GrepBuffers (expression)
+"   exec 'vimgrep/'.a:expression.'/ '.join(BuffersList())
+" endfunction
 
-command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
+" command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
 
 function! Reformat()
 	%s/\r//g
