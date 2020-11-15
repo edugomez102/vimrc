@@ -26,6 +26,31 @@ Plug 'sheerun/vim-polyglot'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 
+Plug 'mhinz/vim-startify'
+let g:startify_session_dir = $HOME . '/.vim/sessions'
+let g:startify_bookmarks = [ {'v': $HOME . '/Appdata/Local/nvim/init.vim'} ]
+
+let g:startify_fortune_use_unicode = 1
+
+let g:header_string = [
+\'😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎',
+\'😎   ┌─┐┌┬┐┬─┐┌─┐  ┌┬┐┬┌─┐  ┌┬┐┌─┐┌─┐  ┌┬┐┌─┐┬  ┌─┐┌┐┌┌┬┐┌─┐  ┌┬┐┌─┐  ┬ ┬┌┐┌┌─┐  ┌─┐┌─┐┌┐┌┌┬┐┌─┐┬  ┬  ┌─┐   😎',
+\'😎   │ │ │ ├┬┘│ │   │││├─┤  │││├─┤└─┐   ││├┤ │  ├─┤│││ │ ├┤    ││├┤   │ ││││├─┤  ├─┘├─┤│││ │ ├─┤│  │  ├─┤   😎',
+\'😎   └─┘ ┴ ┴└─└─┘  ─┴┘┴┴ ┴  ┴ ┴┴ ┴└─┘  ─┴┘└─┘┴─┘┴ ┴┘└┘ ┴ └─┘  ─┴┘└─┘  └─┘┘└┘┴ ┴  ┴  ┴ ┴┘└┘ ┴ ┴ ┴┴─┘┴─┘┴ ┴   😎',
+\'😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎',
+\'',
+\ ]
+let g:startify_custom_header =
+			\ 'startify#center(g:header_string)'
+
+
+let g:startify_lists = [
+			\ { 'header': ['   Sessions'],       'type': 'sessions' },
+			\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
+			\ { 'header': ['   MRU'],            'type': 'files' },
+			\ { 'header': ['   Bookmarks'],      'type': 'bookmarks' }
+			\ ]
+
 " Snippets
 Plug 'SirVer/ultisnips'
 " let g:UltiSnipsExpandTrigger="<F11>"
@@ -226,7 +251,7 @@ autocmd FileType fugitive nmap do dd<c-w>k
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
 
-Plug 'https://github.com/Dimercel/todo-vim'
+" Plug 'https://github.com/Dimercel/todo-vim'
 " TODO hola
 
 call plug#end()
