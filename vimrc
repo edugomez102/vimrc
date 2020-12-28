@@ -78,11 +78,10 @@ nmap ga <Plug>(EasyAlign)
 
 Plug 'akho/numbers.vim'
 let g:numbers_exclude = ['nerdtree', 'vista', 'clap']
-" let g:numbers_exclude_buftypes = ['terminal']
 let g:numbers_exclude_buftypes = [ 'acwrite',  'nofile', 'quickfix', 'terminal' ]
 
 " Popup menu
-Plug 'liuchengxu/vim-clap'
+Plug 'liuchengxu/vim-clap', { 'tag': 'v0.20' }
 let g:clap_layout = { 'relative': 'editor', 'width': '80%', 'col' : '4%' , 'row' : '10%', 'height': '50%'}
 let g:clap_on_move_delay = 1
 let g:clap_session_dir = '~/.vim/sessions'
@@ -104,7 +103,7 @@ endif
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gI <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
@@ -239,6 +238,7 @@ Plug 'MaskRay/ccls'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
+Plug 'habamax/vim-godot'
 
 " Plug 'caenrique/nvim-toggle-terminal'
 
@@ -250,9 +250,6 @@ autocmd FileType fugitive nmap do dd<c-w>k
 
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
-
-" Plug 'https://github.com/Dimercel/todo-vim'
-" TODO hola
 
 call plug#end()
 
@@ -521,7 +518,8 @@ if isdirectory(s:plugged_path . "/vim-clap")
 else
 	nnoremap <C-p> :ls<cr>:b<Space>
 endif
-nnoremap <c-h> :Clap lines<cr>
+" nnoremap <c-h> :Clap lines<cr>
+nnoremap <c-h> :tabedit %<cr> :Grep -w 
 
 " Poner en funcion de si estamos en un repo o no
 	" lo devuelve como un string con valor true
@@ -554,8 +552,8 @@ nnoremap <Space>r :.,$s/\<<C-r>=expand('<cword>')<CR>\>//gc<left><left><left>
 " TODO: check
 "Movidas con el indent
 " map <F7> gg=G<C-o><C-o>
-nnoremap p p=`]
-nnoremap P P=`]
+" nnoremap p p=`]
+" nnoremap P P=`]
 
 " ┌───────┐
 " │ Folds │
@@ -631,6 +629,8 @@ set tm=500
 
 " command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
 
+command! -nargs=+ DeleteFiles call delete('<q-args>')
+
 function! Reformat()
 	%s/\r//g
 	%retab!
@@ -683,7 +683,4 @@ if has("win32")
 	" autocmd TermOpen * set nonumber
 	" autocmd TermOpen * set norelativenumber
 endif
-
-
-
 
