@@ -1,0 +1,107 @@
+snippet p "print" b
+print($0);
+endsnippet
+
+snippet fori "for loop (for)"
+for(int ${1:i} = ${2:0}; $1 ${3:< count}; ${4:$1}${5:++}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fore "for (each)" b
+for ($1 : $2) {
+	$0
+}
+endsnippet
+
+snippet dow "Do While" b
+do{
+	$1
+}while($0);
+endsnippet
+
+snippet while "while" b
+while($1) {
+	$0
+}
+endsnippet
+
+snippet if "if" b
+if($1) {
+	$0${VISUAL}
+}
+endsnippet
+
+snippet eli "else if" b
+else if($1) {
+	$0
+}
+endsnippet
+
+snippet else "else" b
+else{
+	$0
+}
+endsnippet
+
+snippet fun "function" b
+/// $4
+${1:void} ${2:functionName}($3) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet todo "todo" b
+//TODO(`!v strftime("%d/%m/%Y")`): ${1:implementar}
+endsnippet
+
+snippet stls "Stateless Widget" b
+class ${1:name} extends StatelessWidget{
+	@override
+		Widget build(BuildContext context){
+			return ${2:Container()};
+		}
+}
+endsnippet
+
+snippet stf "Stateful Widget" b
+class ${1:name} extends StatefulWidget {
+	$1({Key key}) : super(key: key);
+	@override
+	_$1State createState() => _$1State();
+}
+
+class _$1State extends State<$1> {
+	@override
+	Widget build(BuildContext context) {
+		return Container(
+			child: ${2:child},
+		);
+	}
+}
+endsnippet
+
+
+
+snippet rb "RaisedButton or Flat" i
+${1:Raised}Button(
+	onPressed: () {$3},
+	child: Text('$2'),$0
+)
+endsnippet
+
+snippet op "onPressed" i
+onPressed: () {$1},
+endsnippet
+
+snippet ic "Icon" i
+Icon(Icons.$1),
+endsnippet
+
+
+snippet build "Build" b
+@override
+Widget build(BuildContext context){
+	return $0
+}
+endsnippet
