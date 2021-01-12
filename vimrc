@@ -117,6 +117,16 @@ function! s:show_documentation()
   " endif
 endfunction
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
 " File tree
 Plug 'liuchengxu/vista.vim'
 let g:vista_stay_on_open = 0
@@ -218,7 +228,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " packadd! vimspector
 
 " Html imrovements
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
 Plug 'mattn/emmet-vim'
 Plug 'adelarsq/vim-matchit'
 Plug 'AndrewRadev/tagalong.vim'
@@ -246,6 +256,7 @@ Plug 'habamax/vim-godot'
 
 Plug 'tpope/vim-fugitive'
 autocmd FileType fugitive nmap do dd<c-w>k
+Plug 'rhysd/conflict-marker.vim'
 
 
 Plug 'junegunn/gv.vim'
@@ -266,15 +277,16 @@ command! VimscriptPlugins call VimscriptPlugins()
 syntax enable
 set background=dark
 silent! colorscheme codedark 
+" set termguicolors
 
 " ┌────────────┐
 " │ Tab config │
 " └────────────┘
 set smarttab
 	" show existing tab with 4 spaces width
-set tabstop=4
+set tabstop=2
 	" when indenting with '>', use 4 spaces width
-set shiftwidth=4
+set shiftwidth=2
 	" On pressing tab, insert 4 spaces
 "set expandtab
 
@@ -504,13 +516,21 @@ map <leader>gc :Git checkout<space>
 map <leader>qs :ClapMksession<cr>
 
 map <leader>tt :CocCommand terminal.Toggle<cr>
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+nmap <leader>cr :CocCommand flutter.dev.hotRestart<cr>
+nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
 
 nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
 map <leader>d :SignifyHunkDiff<cr>
-nmap <leader>c <Plug>window:quickfix:loop
+" nmap <leader>c <Plug>window:quickfix:loop
 
 map gs :tab :G<cr>
+map ga :Git add %<cr>
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
@@ -683,4 +703,32 @@ if has("win32")
 	" autocmd TermOpen * set nonumber
 	" autocmd TermOpen * set norelativenumber
 endif
+
+function! ConflictsHighlight() abort
+	syn region conflictStart start=/^<<<<<<< .*$/ end=/^\ze\(=======$\||||||||\)/
+	syn region conflictMiddle start=/^||||||| .*$/ end=/^\ze=======$/
+	syn region conflictEnd start=/^\(=======$\||||||| |\)/ end=/^>>>>>>> .*$/
+
+	highlight conflictStart ctermbg=red ctermfg=black
+	highlight conflictMiddle ctermbg=blue ctermfg=black
+	highlight conflictEnd ctermbg=green cterm=bold ctermfg=black
+endfunction
+
+augroup MyColors
+	autocmd!
+	autocmd BufEnter * call ConflictsHighlight()
+augroup END
+
+let g:conflict_marker_highlight_group = ''
+let g:conflict_marker_begin = '^<<<<<<< .*$'
+let g:conflict_marker_end   = '^>>>>>>> .*$'
+
+highlight ConflictMarkerBegin guibg=#2f7366 ctermbg=118 ctermfg=230
+highlight ConflictMarkerOurs guibg=#2e5049 ctermbg=108 ctermfg=15
+highlight ConflictMarkerTheirs guibg=#344f69 ctermbg=110 ctermfg=15
+highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=230
+highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
+
+highlight ConflictMarkerSeparator ctermfg=230
+
 
