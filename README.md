@@ -1,6 +1,8 @@
+# 😎My vim config😎
+
 ![exit vim](nojoke.png)
 
-# My vim config
+Currently using nvim on Windows 10 😞💔
 
 ## Installation
 
@@ -16,7 +18,7 @@ then open vim and run `:PlugInstall` if you want to install non-vimscript
 plugins  
 note that some of them require dependencies
 
-My recommendation for LSP autocompletition:
+### My recommendation for LSP autocompletition
 
 1. run `:CocInstall coc-marketplace`
 2. then run `:CocList marketplace`
@@ -31,15 +33,16 @@ My recommendation for LSP autocompletition:
 - [vim-surround](https://github.com/tpope/vim-surround)
 - [tcomment_vim](https://github.com/tomtom/tcomment_vim)
 - [vim-markology](https://github.com/jeetsukumaran/vim-markology)
-- [omnisharp-vim](https://github.com/OmniSharp/omnisharp-vim)
 
 ## Upgraded syntax highlighting
 
-Default colorscheme: codedark(vscode based)
+### Works for the colorscheme I use: codedark(vscode based)
 
 - C++
 - Python
 - C#
 - C
 - Java
+
+actually I have just added some lines to the after/ftplugin files but idk
 
