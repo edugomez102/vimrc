@@ -43,12 +43,16 @@ let g:header_string = [
 let g:startify_custom_header =
 			\ 'startify#center(g:header_string)'
 
+let g:startify_commands = [
+			\ {'g': ':G | only'},
+			\ ]
 
 let g:startify_lists = [
 			\ { 'header': ['   Sessions'],       'type': 'sessions' },
 			\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
 			\ { 'header': ['   MRU'],            'type': 'files' },
-			\ { 'header': ['   Bookmarks'],      'type': 'bookmarks' }
+			\ { 'header': ['   Bookmarks'],      'type': 'bookmarks' },
+			\ { 'header': ['   Commands'],      'type': 'commands' }
 			\ ]
 
 " Snippets
