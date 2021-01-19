@@ -4,6 +4,17 @@
 " /_/ /_/ /_/\__, /    |___/_/_/ /_/ /_/_/   \___/  
 "           /____/                                  
 
+" Check system os
+if has('win32')
+	let home_path = $HOME . '/Appdata/Local/nvim/'
+elseif(has('unix'))
+	if has('nvim')
+		let home_path = $HOME . '/.config/nvim/'
+	else
+		let home_path = $HOME . '/.vim'
+	endif
+endif
+
 " ┌──────────────┐
 " │ Plug manager │
 " └──────────────┘
@@ -28,7 +39,7 @@ Plug 'itchyny/vim-gitbranch'
 
 Plug 'mhinz/vim-startify'
 let g:startify_session_dir = $HOME . '/.vim/sessions'
-let g:startify_bookmarks = [ {'v': $HOME . '/Appdata/Local/nvim/init.vim'} ]
+let g:startify_bookmarks = [ {'v': home_path . 'vimrc'} ]
 
 let g:startify_fortune_use_unicode = 1
 
