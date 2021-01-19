@@ -500,6 +500,7 @@ imap JK <Esc>
 nmap <F3> <Plug>window:quickfix:loop
 
 map <leader>qa :qall<cr>
+map <leader>p :set paste!<cr>
 
 " Espejar lineas(hay que empezar una linea antes)
 map <leader>rv :g/^/m'<<cr> :noh<cr>
