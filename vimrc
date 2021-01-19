@@ -260,6 +260,9 @@ let g:vimtex_view_general_viewer = 'okular'
 " C#
 Plug 'OmniSharp/omnisharp-vim'
 
+" Dart
+Plug 'tiagofumo/dart-vim-flutter-layout'
+
 Plug 'MaskRay/ccls'
 
 " Some plugin depenencies
