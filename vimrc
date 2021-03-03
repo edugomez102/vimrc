@@ -61,10 +61,10 @@ let g:startify_commands = [
 			\ {'g': ':G | only'},
 			\ ]
 
+			" \ { 'header': ['   MRU'],            'type': 'files' },
 let g:startify_lists = [
 			\ { 'header': ['   Sessions'],       'type': 'sessions' },
 			\ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
-			\ { 'header': ['   MRU'],            'type': 'files' },
 			\ { 'header': ['   Bookmarks'],      'type': 'bookmarks' },
 			\ { 'header': ['   Commands'],      'type': 'commands' }
 			\ ]
@@ -478,7 +478,8 @@ map <silent> <leader><cr> :noh<cr>
 
 map <leader>tn :tabedit %<cr>
 map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
+" map <leader>tc :tabclose<cr>
+map <leader>tq :tabclose<cr>
 map <leader>tm :tabmove<cr>
 
 " Remaps propios
@@ -545,6 +546,9 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 nmap <leader>cr :CocCommand flutter.dev.hotRestart<cr>
 nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
+nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
+
+nmap <leader>cd :CocDiagnostics<cr>
 
 nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
@@ -552,7 +556,7 @@ map <leader>d :SignifyHunkDiff<cr>
 " nmap <leader>c <Plug>window:quickfix:loop
 
 map gs :tab :G<cr>
-map ga :Git add %<cr>
+map gz :Git add %<cr>
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
@@ -653,6 +657,12 @@ set tm=500
 " ┌───────────┐
 " │ Functions │
 " └───────────┘
+function! TodoGrep()
+	tabedit %
+	:Grep -w TODO
+endfunction
+
+command! Todo call TodoGrep()
 " Funcion para buscar en todos los buffers
 " function! BuffersList()
 "   let all = range(0, bufnr('$'))
@@ -751,6 +761,4 @@ highlight ConflictMarkerTheirs guibg=#344f69 ctermbg=110 ctermfg=15
 highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=230
 highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
-highlight ConflictMarkerSeparator ctermfg=230
-
-
+" map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
