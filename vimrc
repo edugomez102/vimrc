@@ -236,13 +236,13 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
 	" UI Color picker
-Plug 'DougBeney/pickachu'
+" Plug 'DougBeney/pickachu'
 
 " Languages
 
 " Debugger
 Plug 'puremourning/vimspector'
-let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 " packadd! vimspector
 
 " Html imrovements
@@ -279,6 +279,9 @@ Plug 'tpope/vim-fugitive'
 autocmd FileType fugitive nmap do dd<c-w>k
 Plug 'rhysd/conflict-marker.vim'
 
+Plug 'cdelledonne/vim-cmake'
+let g:cmake_root_markers = ['.']
+let g:cmake_default_config = 'build'
 
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
@@ -523,9 +526,9 @@ nmap <leader>gk :diffget //3<cr>
 " clean quickfix
 nmap <leader>cf :cexpr []<cr>
 
-map <F8> :set foldmethod=syntax<cr>
+" map <F8> :set foldmethod=syntax<cr>
 " map <leader>a :bufdo :args ## %<cr>
-
+noremap <F3> :!./run.sh<cr>
 
 " Plugin mappings
 " ***************
@@ -548,7 +551,10 @@ nmap <leader>cr :CocCommand flutter.dev.hotRestart<cr>
 nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
 nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 
-nmap <leader>cd :CocDiagnostics<cr>
+nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
+
+" coc marks?
+nmap <leader>cm :CocDiagnostics<cr>
 
 nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
@@ -725,7 +731,7 @@ runtime! ftplugin/man.vim
 " ┌──────┐
 " │ Misc │
 " └──────┘
-map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
+" map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
 
 if has("win32")
 	tnoremap jk <c-\><c-n>
