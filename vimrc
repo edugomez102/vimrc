@@ -98,6 +98,10 @@ Plug 'akho/numbers.vim'
 let g:numbers_exclude = ['nerdtree', 'vista', 'clap']
 let g:numbers_exclude_buftypes = [ 'acwrite',  'nofile', 'quickfix', 'terminal' ]
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 " Popup menu
 Plug 'liuchengxu/vim-clap', { 'tag': 'v0.20' }
 let g:clap_layout = { 'relative': 'editor', 'width': '80%', 'col' : '4%' , 'row' : '10%', 'height': '50%'}
@@ -199,6 +203,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let NERDTreeDirArrowExpandable="\u00a0"
 let NERDTreeDirArrowCollapsible="\u00a0"
 
+Plug 'kyazdani42/nvim-web-devicons'
+
 " Visible marks
 Plug 'jeetsukumaran/vim-markology'
 
@@ -220,7 +226,8 @@ Plug 'dkprice/vim-easygrep'
 let g:EasyGrepReplaceWindowMode = 2
 
 " Generate ctags files
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_project_root = ['.']
 
 " Fuzzy finder
 " Plug 'junegunn/fzf.vim'
@@ -242,7 +249,7 @@ Plug 'tpope/vim-repeat'
 
 " Debugger
 Plug 'puremourning/vimspector'
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+let g:vimspector_enable_mappings = 'HUMAN'
 " packadd! vimspector
 
 " Html imrovements
@@ -530,6 +537,8 @@ nmap <leader>cf :cexpr []<cr>
 " map <leader>a :bufdo :args ## %<cr>
 noremap <F3> :!./run.sh<cr>
 
+nnoremap <leader>f :!feh <cfile> &<cr>
+
 " Plugin mappings
 " ***************
 map <leader>e :NERDTreeToggle<cr>
@@ -566,24 +575,25 @@ map gz :Git add %<cr>
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
-	nnoremap <c-p> :Clap buffers<cr>
+	nnoremap <c-p> :Telescope buffers<cr>
 else
 	nnoremap <C-p> :ls<cr>:b<Space>
 endif
-" nnoremap <c-h> :Clap lines<cr>
-nnoremap <c-h> :tabedit %<cr> :Grep -w 
+
+nnoremap <c-h> :Telescope tags<cr>
 
 " Poner en funcion de si estamos en un repo o no
 	" lo devuelve como un string con valor true
 let s:inside_git = system('git rev-parse --is-inside-work-tree')
 if s:inside_git =~ "true"
-	nnoremap <c-j> :Clap git_files<cr>
+	nnoremap <c-j> :Telescope git_files<cr>
 else
-	nnoremap <c-j> :Clap files<cr>
+	nnoremap <c-j> :Telescope find_files<cr>
 endif
+
 nnoremap <c-n> :Clap filer<cr>
 nnoremap <c-k> :Clap tags<cr>
-nnoremap <leader>f :Clap<cr>
+" nnoremap <leader>f :Clap<cr>
 nnoremap <leader>y :Clap yanks<cr>
 
 " ┌────────────────────┐
@@ -709,7 +719,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " inoremap <C-l>l <Esc>u2z=gi
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=161
-nmap <f4> :set spell! <bar> set spelllang=es<cr>
+" nmap <f4> :set spell! <bar> set spelllang=es<cr>
 
 " ┌──────────┐
 " │ Sessions │
