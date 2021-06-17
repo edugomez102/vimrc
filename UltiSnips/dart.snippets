@@ -66,8 +66,8 @@ try {
 endsnippet
 
 snippet fun "function" b
-/// $4
-${1:void} ${2:functionName}($3) {
+/// $5
+${1:void} ${2:functionName}($3) ${4:async} {
 	${VISUAL}$0
 }
 endsnippet
@@ -90,6 +90,21 @@ ${1:Raised}Button(
 )
 endsnippet
 
+snippet fb "FlatButton" i
+${1:Flat}Button(
+	onPressed: () {$3},
+	child: Text('$2'),$0
+)
+endsnippet
+
+snippet fbi "FlatButton icon" i
+${1:Flat}Button.icon(
+	onPressed: () {$4},
+	icon: $2,
+	label: Text('$3'),$0
+)
+endsnippet
+
 snippet ic "Icon" i
 Icon(
 	Icons.$1,
@@ -105,6 +120,10 @@ Text(
 				fontSize: ${3:28.0},$0
 		),
 ),
+endsnippet
+
+snippet sb "SizedBox" b
+SizedBox(${1:height: ${2:8.0}}, ${3:width: ${4: 4.0}} ),
 endsnippet
 
 
