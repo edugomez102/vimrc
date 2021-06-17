@@ -258,7 +258,7 @@ let g:polyglot_disabled = ['latex']
 let g:vimtex_view_general_viewer = 'okular'
 
 " C#
-Plug 'OmniSharp/omnisharp-vim'
+" Plug 'OmniSharp/omnisharp-vim'
 
 " Dart
 Plug 'tiagofumo/dart-vim-flutter-layout'
@@ -285,6 +285,10 @@ let g:cmake_default_config = 'build'
 
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
+
+" Plug 'kkoomen/vim-doge'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'sickill/vim-pasta'
 
 call plug#end()
 
