@@ -563,7 +563,10 @@ nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
 
 " coc marks?
-nmap <leader>cm :CocDiagnostics<cr>
+nmap <leader>cd :CocDiagnostics<cr>
+" cmake
+nmap <leader>cm :CMakeBuild<cr>
+nmap <leader>cc :CMakeClose<cr>
 
 nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
