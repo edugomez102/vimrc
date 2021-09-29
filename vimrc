@@ -31,6 +31,7 @@ call plug#begin(s:plugged_path)
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 Plug 'tomasiser/vim-code-dark'
+Plug 'https://github.com/samsaga2/vim-z80'
 
 " Syntax highlighting various languages
 Plug 'sheerun/vim-polyglot'
@@ -220,7 +221,8 @@ Plug 'dkprice/vim-easygrep'
 let g:EasyGrepReplaceWindowMode = 2
 
 " Generate ctags files
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_enabled = 0
 
 " Fuzzy finder
 " Plug 'junegunn/fzf.vim'
@@ -772,3 +774,8 @@ highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=230
 highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
 " map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
+
+augroup z80_hi
+	au!
+	autocmd BufNewFile,BufRead *.s   set ft=z80
+augroup END
