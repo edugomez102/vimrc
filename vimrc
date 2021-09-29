@@ -31,6 +31,7 @@ call plug#begin(s:plugged_path)
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 Plug 'tomasiser/vim-code-dark'
+Plug 'https://github.com/edugomez102/vim-z80'
 
 " Syntax highlighting various languages
 Plug 'sheerun/vim-polyglot'
@@ -227,7 +228,7 @@ let g:EasyGrepReplaceWindowMode = 2
 
 " Generate ctags files
 Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_project_root = ['.']
+let g:gutentags_enabled = 0
 
 " Fuzzy finder
 " Plug 'junegunn/fzf.vim'
