@@ -5,12 +5,30 @@ name_rutina:
 
 endsnippet
 
-snippet doc "doc comment" b
-;;
-;; ${1:movida}
-;;
+# snippet doc "doc comment" b
+# ;;
+# ;; ${1:Description}
+# ;;
+# endsnippet
+
+snippet doc "doc args" b
+;; Objetive: $1
+;; Pre requirements
+;;  - $2
+;; Modifies: $3
+endsnippet
+
+snippet et "etiqueta con doc" b
+;; Objetive: $1
+;; Pre requirements
+;;  - $2
+;; Modifies: $3
+${4:name}:
+   $5
+   ret
 endsnippet
 
 snippet todo "TODO" b
 ;; TODO: ${1:implementar}
 endsnippet
+

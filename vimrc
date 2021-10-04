@@ -32,6 +32,7 @@ Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'https://github.com/edugomez102/vim-z80'
+Plug 'https://github.com/rr-/vim-hexdec', {'commit': 'a4c59850610ece0129f6496e677877cee8a6d065'}
 
 " Syntax highlighting various languages
 Plug 'sheerun/vim-polyglot'
@@ -102,6 +103,7 @@ let g:numbers_exclude_buftypes = [ 'acwrite',  'nofile', 'quickfix', 'terminal' 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim', { 'commit': '89a6161c81a516c4e2fe80a3365f774961ac9b9d' }
 
 " Popup menu
 Plug 'liuchengxu/vim-clap', { 'tag': 'v0.20' }
@@ -271,7 +273,7 @@ let g:vimtex_view_general_viewer = 'okular'
 " Dart
 Plug 'tiagofumo/dart-vim-flutter-layout'
 
-Plug 'MaskRay/ccls'
+" Plug 'MaskRay/ccls'
 
 " Some plugin depenencies
 Plug 'roxma/nvim-yarp'
@@ -566,6 +568,7 @@ nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
 nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 
 nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
+nmap <leader>h :ToggleHexDec<cr>
 
 " coc marks?
 nmap <leader>cd :CocDiagnostics<cr>
@@ -588,7 +591,7 @@ else
 	nnoremap <C-p> :ls<cr>:b<Space>
 endif
 
-nnoremap <c-h> :Telescope tags<cr>
+" nnoremap <c-h> :Telescope tags<cr>
 
 " Poner en funcion de si estamos en un repo o no
 	" lo devuelve como un string con valor true
@@ -600,7 +603,9 @@ else
 endif
 
 nnoremap <c-n> :Clap filer<cr>
-nnoremap <c-k> :Clap tags<cr>
+nnoremap <c-k> :Telescope tags<cr>
+" nnoremap <c-k> :Clap tags<cr>
+
 " nnoremap <leader>f :Clap<cr>
 nnoremap <leader>y :Clap yanks<cr>
 
