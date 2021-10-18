@@ -31,8 +31,16 @@ call plug#begin(s:plugged_path)
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 Plug 'tomasiser/vim-code-dark'
+" Plug 'https://github.com/Mofiqul/vscode.nvim'
+
+Plug 'chrisbra/Colorizer'
+
 Plug 'https://github.com/edugomez102/vim-z80'
 Plug 'https://github.com/rr-/vim-hexdec', {'commit': 'a4c59850610ece0129f6496e677877cee8a6d065'}
+Plug 'https://github.com/voldikss/vim-floaterm'
+let g:floaterm_wintype = 'split'
+let floaterm_position = 'botright'
+let floaterm_height = 0.3
 
 " Syntax highlighting various languages
 Plug 'sheerun/vim-polyglot'
@@ -185,6 +193,7 @@ Plug 'tpope/vim-obsession'
 " File tree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeMapOpenExpl = ''
 " Nerdfonts icons
 Plug 'ryanoasis/vim-devicons'
 let NERDTreeRespectWildIgnore=1
@@ -229,8 +238,8 @@ Plug 'dkprice/vim-easygrep'
 let g:EasyGrepReplaceWindowMode = 2
 
 " Generate ctags files
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_enabled = 0
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_enabled = 0
 
 " Fuzzy finder
 " Plug 'junegunn/fzf.vim'
@@ -531,7 +540,7 @@ nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : 'o<Esc>'
 
 " borrar linea y pegar
 map gp pk"_dd
-map <leader>; q:
+map <leader>; :FloatermToggle<cr>
 
 " vimdiff
 nmap <leader>gj :diffget //2<cr>
@@ -549,6 +558,7 @@ nnoremap <leader>f :!feh <cfile> &<cr>
 " Plugin mappings
 " ***************
 map <leader>e :NERDTreeToggle<cr>
+map U :UndotreeToggle<cr>
 
 " Vim fugitive
 map <leader>gc :Git checkout<space>
@@ -576,8 +586,8 @@ nmap <leader>cd :CocDiagnostics<cr>
 nmap <leader>cm :CMakeBuild<cr>
 nmap <leader>cc :CMakeClose<cr>
 
-nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
-nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
+" nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
+" nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
 map <leader>d :SignifyHunkDiff<cr>
 " nmap <leader>c <Plug>window:quickfix:loop
 
@@ -621,7 +631,7 @@ vnoremap <C-r> "hy:.,$s/<C-r>h//gc<left><left><left>
 nnoremap <leader>/ /\<\><left><left>
 	" buscar y seleccionar en bloque
 " nnoremap <Space>r :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
-nnoremap <Space>r :.,$s/\<<C-r>=expand('<cword>')<CR>\>//gc<left><left><left>
+nnoremap <Space>r :.,$s/\<<C-r>=expand('<cword>')<CR>\>/<c-r><c-w>/gc<left><left><left>
 
 
 " TODO: check
@@ -756,6 +766,7 @@ runtime! ftplugin/man.vim
 " └──────┘
 " map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
 
+tnoremap jk <c-\><c-n>
 if has("win32")
 	tnoremap jk <c-\><c-n>
 	" echo "win"
@@ -791,3 +802,8 @@ highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=230
 highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
 " map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
+
+" TODO: move to highlight file
+hi DiffAdd ctermbg=22
+hi DiffDelete ctermbg=237 ctermfg=238
+hi DiffText ctermbg=88
