@@ -28,10 +28,14 @@ let s:plugged_path = $HOME . '/.vim/plugged'
 call plug#begin(s:plugged_path)
 
 " Colorschemes
+" mas top
+Plug 'edugomez102/vim-code-dark'
+" Plug 'https://github.com/Mofiqul/vscode.nvim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'https://github.com/rakr/vim-one'
+
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
-Plug 'tomasiser/vim-code-dark'
-" Plug 'https://github.com/Mofiqul/vscode.nvim'
 
 Plug 'chrisbra/Colorizer'
 
@@ -176,11 +180,11 @@ endif
 " inoremap <S-tab> <ESC>la
 
 Plug 'neomake/neomake'
-augroup my_neomake_signs
-	au!
-	autocmd ColorScheme *
-				\ hi NeomakeWarningSign ctermfg=186
-augroup END
+" augroup my_neomake_signs
+" 	au!
+" 	autocmd ColorScheme *
+" 				\ hi NeomakeWarningSign ctermfg=186
+" augroup END
 
 " Version control changes
 Plug 'mhinz/vim-signify'
@@ -222,7 +226,6 @@ Plug 'jeetsukumaran/vim-markology'
 
 let g:markology_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let g:markology_ignore_type="hprqm"
-nmap mm :MarkologyLocationList<cr>
 
 " Improve search
 Plug 'osyo-manga/vim-anzu'
@@ -234,8 +237,8 @@ if isdirectory(s:plugged_path . "/vim-anzu")
 endif
 
 " Improve grep
-Plug 'dkprice/vim-easygrep'
-let g:EasyGrepReplaceWindowMode = 2
+" Plug 'dkprice/vim-easygrep'
+" let g:EasyGrepReplaceWindowMode = 2
 
 " Generate ctags files
 " Plug 'ludovicchabant/vim-gutentags'
@@ -323,8 +326,8 @@ command! VimscriptPlugins call VimscriptPlugins()
 " └────────┘
 syntax enable
 set background=dark
-silent! colorscheme codedark 
 " set termguicolors
+silent! colorscheme codedark
 
 " ┌────────────┐
 " │ Tab config │
@@ -452,8 +455,8 @@ endif
 " └─────────┘
 if has_key(plugs, "vim-signify")
 	highlight SignifySignChange ctermfg=yellow guifg=#ffff00 cterm=NONE gui=NONE
-	highlight SignifySignAdd    ctermfg=green  guifg=#00ff00 cterm=NONE gui=NONE
-	highlight SignifySignDelete ctermfg=89  guifg=#ff0000 cterm=NONE gui=NONE
+	highlight SignifySignAdd    ctermfg=green  guifg=LightGreen cterm=NONE gui=NONE
+	highlight SignifySignDelete ctermfg=89  guifg=#870000 cterm=NONE gui=NONE
 	let g:signify_sign_change = '~'
 endif
 
@@ -477,6 +480,8 @@ endif
 set laststatus=2
 set noshowmode
 set ttimeoutlen=50
+
+" \ 'colorscheme' : 'nord',
 let g:lightline = {
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
@@ -484,12 +489,22 @@ let g:lightline = {
 			\ },
 			\ 'component_function': {
 			\   'gitbranch': 'gitbranch#name',
-			\   'session' : 'LigthlineSessionstatus'
+			\   'filename' : 'LightlineFilename'
 			\ },
 			\ }
+" \   'session' : 'LigthlineSessionstatus',
 
 function! LigthlineSessionstatus()
 	return ObsessionStatus()
+endfunction
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
 endfunction
 
 " ┌────────┐
@@ -563,6 +578,8 @@ map U :UndotreeToggle<cr>
 " Vim fugitive
 map <leader>gc :Git checkout<space>
 
+map <leader>vv :Vista!!<cr>
+
 " autocmd FileType nerdtree :set norelativenumber
 " map <leader>db :WakaTimeToday<cr>
 map <leader>qs :ClapMksession<cr>
@@ -578,7 +595,6 @@ nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
 nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 
 nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
-nmap <leader>h :ToggleHexDec<cr>
 
 " coc marks?
 nmap <leader>cd :CocDiagnostics<cr>
@@ -594,6 +610,17 @@ map <leader>d :SignifyHunkDiff<cr>
 map gs :tab :G<cr>
 map gz :Git add %<cr>
 
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
+
+nmap <Leader>vc :VimspectorReset<cr>
+nmap <Leader>dw :VimspectorWatch <c-r><c-w><cr>
+
+nmap <Leader><F11> <Plug>VimspectorUpFrame
+nmap <Leader><F12> <Plug>VimspectorDownFrame
+
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
 	nnoremap <c-p> :Telescope buffers<cr>
@@ -601,7 +628,8 @@ else
 	nnoremap <C-p> :ls<cr>:b<Space>
 endif
 
-" nnoremap <c-h> :Telescope tags<cr>
+nnoremap <c-h> :Telescope grep_string<cr>
+nmap mm :Telescope marks<cr>
 
 " Poner en funcion de si estamos en un repo o no
 	" lo devuelve como un string con valor true
@@ -795,15 +823,10 @@ let g:conflict_marker_highlight_group = ''
 let g:conflict_marker_begin = '^<<<<<<< .*$'
 let g:conflict_marker_end   = '^>>>>>>> .*$'
 
-highlight ConflictMarkerBegin guibg=#2f7366 ctermbg=118 ctermfg=230
-highlight ConflictMarkerOurs guibg=#2e5049 ctermbg=108 ctermfg=15
-highlight ConflictMarkerTheirs guibg=#344f69 ctermbg=110 ctermfg=15
-highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=230
+highlight ConflictMarkerBegin guibg=#2f7366 ctermbg=118 ctermfg=0
+highlight ConflictMarkerOurs guibg=#2e5049 ctermbg=108 ctermfg=0
+highlight ConflictMarkerTheirs guibg=#344f69 ctermbg=110 ctermfg=0
+highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=0
 highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
 " map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
-
-" TODO: move to highlight file
-hi DiffAdd ctermbg=22
-hi DiffDelete ctermbg=237 ctermfg=238
-hi DiffText ctermbg=88
