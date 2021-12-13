@@ -38,6 +38,7 @@ Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
 
 Plug 'chrisbra/Colorizer'
+Plug 'nvim-treesitter/nvim-treesitter/'
 
 Plug 'https://github.com/edugomez102/vim-z80'
 Plug 'https://github.com/rr-/vim-hexdec', {'commit': 'a4c59850610ece0129f6496e677877cee8a6d065'}
@@ -115,6 +116,9 @@ let g:numbers_exclude_buftypes = [ 'acwrite',  'nofile', 'quickfix', 'terminal' 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'fannheyward/telescope-coc.nvim'
+
 " Plug 'nvim-telescope/telescope.nvim', { 'commit': '89a6161c81a516c4e2fe80a3365f774961ac9b9d' }
 
 " Popup menu
@@ -141,7 +145,7 @@ endif
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gI <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr :Telescope coc references<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -326,7 +330,7 @@ command! VimscriptPlugins call VimscriptPlugins()
 " └────────┘
 syntax enable
 set background=dark
-" set termguicolors
+set termguicolors
 silent! colorscheme codedark
 
 " ┌────────────┐
@@ -334,11 +338,11 @@ silent! colorscheme codedark
 " └────────────┘
 set smarttab
 	" show existing tab with 4 spaces width
-set tabstop=2
+set tabstop=4
 	" when indenting with '>', use 4 spaces width
-set shiftwidth=2
+set shiftwidth=4
 	" On pressing tab, insert 4 spaces
-"set expandtab
+" set expandtab
 
 " ┌───────────┐
 " │ UI config │
@@ -402,6 +406,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+" set iskeyword -=_
 
 " ┌──────────────┐
 " │ Move options │
@@ -481,8 +486,8 @@ set laststatus=2
 set noshowmode
 set ttimeoutlen=50
 
-" \ 'colorscheme' : 'nord',
 let g:lightline = {
+     \ 'colorscheme' : 'nord',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\				[ 'gitbranch', 'session', 'readonly', 'filename', 'modified' ] ]
@@ -568,7 +573,7 @@ nmap <leader>cf :cexpr []<cr>
 " map <leader>a :bufdo :args ## %<cr>
 noremap <F3> :!./run.sh<cr>
 
-nnoremap <leader>f :!feh <cfile> &<cr>
+nnoremap <leader>ff :!feh <cfile> &<cr>
 
 " Plugin mappings
 " ***************
@@ -597,7 +602,7 @@ nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
 
 " coc marks?
-nmap <leader>cd :CocDiagnostics<cr>
+nmap <leader>cd :Telescope coc diagnostics<cr>
 " cmake
 nmap <leader>cm :CMakeBuild<cr>
 nmap <leader>cc :CMakeClose<cr>
@@ -609,6 +614,9 @@ map <leader>d :SignifyHunkDiff<cr>
 
 map gs :tab :G<cr>
 map gz :Git add %<cr>
+
+map <leader>gd yiw<c-w>h:Gvdiffsplit <c-r>"<cr>  <c-w>l<c-w>q"
+map <leader>fv :vert Flogsplit<cr>
 
 " for normal mode - the word under the cursor
 nmap <Leader>di <Plug>VimspectorBalloonEval
@@ -640,12 +648,18 @@ else
 	nnoremap <c-j> :Telescope find_files<cr>
 endif
 
+nnoremap <leader>f :Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>j :Telescope coc mru<cr>
+
 nnoremap <c-n> :Clap filer<cr>
-nnoremap <c-k> :Telescope tags<cr>
+" nnoremap <c-k> :Telescope tags<cr>
+nnoremap <c-k> :Telescope treesitter<cr>
+
 " nnoremap <c-k> :Clap tags<cr>
 
-" nnoremap <leader>f :Clap<cr>
 nnoremap <leader>y :Clap yanks<cr>
+
+
 
 " ┌────────────────────┐
 " │ Search and replace │
@@ -830,3 +844,24 @@ highlight ConflictMarkerEnd guibg=#3f628e ctermbg=117 ctermfg=0
 highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
 " map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+require('telescope').load_extension('coc')
+
+EOF
+
