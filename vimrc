@@ -142,7 +142,7 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :Telescope coc definitions<cr>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gI <Plug>(coc-implementation)
 nmap <silent> gr :Telescope coc references<cr>
@@ -312,9 +312,11 @@ let g:cmake_default_config = 'build'
 Plug 'junegunn/gv.vim'
 Plug 'rbong/vim-flog'
 
-" Plug 'kkoomen/vim-doge'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sickill/vim-pasta'
+Plug 'https://github.com/ThePrimeagen/refactoring.nvim'
 
 call plug#end()
 
@@ -487,7 +489,6 @@ set noshowmode
 set ttimeoutlen=50
 
 let g:lightline = {
-     \ 'colorscheme' : 'nord',
 			\ 'active': {
 			\   'left': [ [ 'mode', 'paste' ],
 			\				[ 'gitbranch', 'session', 'readonly', 'filename', 'modified' ] ]
@@ -534,8 +535,6 @@ nmap ss "_dd
 nmap <s-S> "_D
 
 nmap <leader>w :w!<cr>
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
 " nnoremap <leader>j :find ./**/
 nnoremap <leader>s :vimgrep  ./**/*<left><left><left><left><left><left><left>
 map Y y$
@@ -545,12 +544,14 @@ map Q @:
 imap <c-e> <Del>
 imap jk <Esc>
 imap JK <Esc>
+vmap jk <Esc>
+vmap JK <Esc>
 
 "toggle quickfix
 nmap <F3> <Plug>window:quickfix:loop
 
 map <leader>qa :qall<cr>
-map <leader>p :set paste!<cr>
+" map <leader>p :set paste!<cr>
 
 " Espejar lineas(hay que empezar una linea antes)
 map <leader>rv :g/^/m'<<cr> :noh<cr>
@@ -561,6 +562,7 @@ nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : 'o<Esc>'
 " borrar linea y pegar
 map gp pk"_dd
 map <leader>; :FloatermToggle<cr>
+map <leader>c; :FloatermToggle<cr> <c-c> clear<cr>
 
 " vimdiff
 nmap <leader>gj :diffget //2<cr>
@@ -571,9 +573,9 @@ nmap <leader>cf :cexpr []<cr>
 
 " map <F8> :set foldmethod=syntax<cr>
 " map <leader>a :bufdo :args ## %<cr>
-noremap <F3> :!./run.sh<cr>
+" noremap <F3> :!./run.sh<cr>
 
-nnoremap <leader>ff :!feh <cfile> &<cr>
+nnoremap <leader>fs :!feh <cfile> &<cr>
 
 " Plugin mappings
 " ***************
@@ -589,7 +591,6 @@ map <leader>vv :Vista!!<cr>
 " map <leader>db :WakaTimeToday<cr>
 map <leader>qs :ClapMksession<cr>
 
-map <leader>tt :CocCommand terminal.Toggle<cr>
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -609,7 +610,9 @@ nmap <leader>cc :CMakeClose<cr>
 
 " nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 " nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
-map <leader>d :SignifyHunkDiff<cr>
+
+map <leader>s :SignifyHunkDiff<cr>
+
 " nmap <leader>c <Plug>window:quickfix:loop
 
 map gs :tab :G<cr>
@@ -631,12 +634,12 @@ nmap <Leader><F12> <Plug>VimspectorDownFrame
 
 " Clap maps
 if isdirectory(s:plugged_path . "/vim-clap")
-	nnoremap <c-p> :Telescope buffers<cr>
+	nnoremap <c-m> :Telescope buffers<cr>
 else
-	nnoremap <C-p> :ls<cr>:b<Space>
+	nnoremap <C-m> :ls<cr>:b<Space>
 endif
 
-nnoremap <c-h> :Telescope grep_string<cr>
+nnoremap <c-h> :Telescope coc workspace_symbols<cr>
 nmap mm :Telescope marks<cr>
 
 " Poner en funcion de si estamos en un repo o no
@@ -648,8 +651,8 @@ else
 	nnoremap <c-j> :Telescope find_files<cr>
 endif
 
-nnoremap <leader>f :Telescope current_buffer_fuzzy_find<cr>
-nnoremap <leader>j :Telescope coc mru<cr>
+nnoremap <leader>/ :Telescope current_buffer_fuzzy_find<cr>
+nnoremap <c-p> :Telescope coc mru<cr>
 
 nnoremap <c-n> :Clap filer<cr>
 " nnoremap <c-k> :Telescope tags<cr>
@@ -657,9 +660,7 @@ nnoremap <c-k> :Telescope treesitter<cr>
 
 " nnoremap <c-k> :Clap tags<cr>
 
-nnoremap <leader>y :Clap yanks<cr>
-
-
+nnoremap <leader>y :Telescope registers<cr>
 
 " ┌────────────────────┐
 " │ Search and replace │
@@ -670,7 +671,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 	" remplazar visual mode desde linea actual hasta fin fichero
 vnoremap <C-r> "hy:.,$s/<C-r>h//gc<left><left><left>
 	" buscar palabra exacta
-nnoremap <leader>/ /\<\><left><left>
+" nnoremap <leader>/ /\<\><left><left>
 	" buscar y seleccionar en bloque
 " nnoremap <Space>r :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap <Space>r :.,$s/\<<C-r>=expand('<cword>')<CR>\>/<c-r><c-w>/gc<left><left><left>
@@ -845,7 +846,10 @@ highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 
 " map s !start chrome /incognito https://www.youtube.com/channel/UCQxjtDgJvfY0aKirYYI42cg?sub_confirmation=1<cr>
 
-lua <<EOF
+lua << EOF
+require('telescope').setup {
+	defaults = { file_ignore_patterns = {"vendor/"} } }
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
@@ -863,5 +867,32 @@ require'nvim-treesitter.configs'.setup {
 
 require('telescope').load_extension('coc')
 
+require('refactoring').setup({
+	-- prompt for return type
+	prompt_func_return_type = {
+		go = true,
+	},
+	-- prompt for function parameters
+	prompt_func_param_type = {
+		go = true,
+		cpp = true,
+		c = true,
+		java = true,
+	},
+})
+
+-- load refactoring Telescope extension
+require("telescope").load_extension("refactoring")
+vim.api.nvim_set_keymap("v", "<Leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], {noremap = true, silent = true, expr = false})
+
+-- remap to open the Telescope refactoring menu in visual mode
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>rr",
+	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+	{ noremap = true }
+)
+
 EOF
 
+autocmd BufNewFile,BufRead *.tpp set filetype=cpp
