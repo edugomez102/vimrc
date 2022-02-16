@@ -119,6 +119,8 @@ Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'fannheyward/telescope-coc.nvim'
 
+Plug 'nvim-pack/nvim-spectre'
+
 " Plug 'nvim-telescope/telescope.nvim', { 'commit': '89a6161c81a516c4e2fe80a3365f774961ac9b9d' }
 
 " Popup menu
@@ -536,7 +538,7 @@ nmap <s-S> "_D
 
 nmap <leader>w :w!<cr>
 " nnoremap <leader>j :find ./**/
-nnoremap <leader>s :vimgrep  ./**/*<left><left><left><left><left><left><left>
+" nnoremap <leader>s :vimgrep  ./**/*<left><left><left><left><left><left><left>
 map Y y$
 map Q @:
 
@@ -544,7 +546,6 @@ map Q @:
 imap <c-e> <Del>
 imap jk <Esc>
 imap JK <Esc>
-vmap jk <Esc>
 vmap JK <Esc>
 
 "toggle quickfix
@@ -611,7 +612,7 @@ nmap <leader>cc :CMakeClose<cr>
 " nnoremap <leader>j :MarkologyNextLocalMarkPos<cr>
 " nnoremap <leader>k :MarkologyPrevLocalMarkPos<cr>
 
-map <leader>s :SignifyHunkDiff<cr>
+map <leader>ss :SignifyHunkDiff<cr>
 
 " nmap <leader>c <Plug>window:quickfix:loop
 
@@ -656,7 +657,7 @@ nnoremap <c-p> :Telescope coc mru<cr>
 
 nnoremap <c-n> :Clap filer<cr>
 " nnoremap <c-k> :Telescope tags<cr>
-nnoremap <c-k> :Telescope treesitter<cr>
+nnoremap <c-k> :Telescope coc document_symbols <cr>
 
 " nnoremap <c-k> :Clap tags<cr>
 
@@ -894,5 +895,14 @@ vim.api.nvim_set_keymap(
 )
 
 EOF
+
+" TODO: improve
+nnoremap <leader>S <cmd>lua require('spectre').open()<CR>
+
+"search current word
+nnoremap <leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
+vnoremap <leader>s <cmd>lua require('spectre').open_visual()<CR>
+"  search in current file
+nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
 
 autocmd BufNewFile,BufRead *.tpp set filetype=cpp
