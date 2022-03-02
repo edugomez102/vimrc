@@ -601,7 +601,16 @@ nmap <leader>cr :CocCommand flutter.dev.hotRestart<cr>
 nmap <leader>ch :CocCommand flutter.dev.hotReload<cr>
 nmap <leader>cl :CocCommand flutter.dev.openDevLog<cr>
 
-nmap <leader>h :CocCommand clangd.switchSourceHeader<cr>
+nmap <leader>hh :CocCommand clangd.switchSourceHeader<cr>
+function! ToggleTpp()
+	if expand('%:e') == "hpp"
+		:e %:r.tpp
+	elseif expand('%:e') == "tpp"
+		:e %:r.hpp
+	end
+endfunction
+
+nmap <leader>ht :call ToggleTpp()<cr>
 
 " coc marks?
 nmap <leader>cd :Telescope coc diagnostics<cr>
