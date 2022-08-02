@@ -24,13 +24,10 @@ endif
 
 " set plugin dir
 let s:plugged_path = $HOME . '/.vim/plugged'
-
 call plug#begin(s:plugged_path)
 
 " Colorschemes
-" mas top
 Plug 'edugomez102/vim-code-dark'
-" Plug 'https://github.com/Mofiqul/vscode.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'https://github.com/rakr/vim-one'
 
@@ -58,7 +55,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'mhinz/vim-startify'
 let g:startify_session_dir = $HOME . '/.vim/sessions'
 let g:startify_bookmarks = [ {'v': home_path . 'vimrc'} ]
-
 let g:startify_fortune_use_unicode = 1
 
 let g:header_string = [
@@ -86,9 +82,6 @@ let g:startify_lists = [
 
 " Snippets
 Plug 'SirVer/ultisnips'
-" let g:UltiSnipsExpandTrigger="<F11>"
-" let g:UltiSnipsJumpForwardTrigger="<F11>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-H>"
 let g:UltiSnipsEditSplit="vertical"
 let g:ultisnips_javascript = {
 			\ 'keyword-spacing': 'always',
@@ -104,7 +97,6 @@ xnoremap <C-\> gc
 " Unix commands
 Plug 'tpope/vim-eunuch'
 
-" EasyAlign
 Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -121,8 +113,6 @@ Plug 'fannheyward/telescope-coc.nvim'
 
 Plug 'nvim-pack/nvim-spectre'
 
-" Plug 'nvim-telescope/telescope.nvim', { 'commit': '89a6161c81a516c4e2fe80a3365f774961ac9b9d' }
-
 " Popup menu
 Plug 'liuchengxu/vim-clap', { 'tag': 'v0.20' }
 let g:clap_layout = { 'relative': 'editor', 'width': '80%', 'col' : '4%' , 'row' : '10%', 'height': '50%'}
@@ -137,7 +127,6 @@ let g:clap_provider_dotfiles = {
 
 " Autocompletition
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	" Ctrl enter to complete
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
@@ -153,11 +142,7 @@ nmap <silent> gr :Telescope coc references<cr>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  " if (index(['vim','help'], &filetype) >= 0)
-  "   execute 'h '.expand('<cword>')
-  " else
     call CocAction('doHover')
-  " endif
 endfunction
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
@@ -185,13 +170,6 @@ if !exists('g:pairify_map')
 endif
 " inoremap <S-tab> <ESC>la
 
-Plug 'neomake/neomake'
-" augroup my_neomake_signs
-" 	au!
-" 	autocmd ColorScheme *
-" 				\ hi NeomakeWarningSign ctermfg=186
-" augroup END
-
 " Version control changes
 Plug 'mhinz/vim-signify'
 " Undotree
@@ -204,7 +182,6 @@ Plug 'tpope/vim-obsession'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeMapOpenExpl = ''
-" Nerdfonts icons
 Plug 'ryanoasis/vim-devicons'
 let NERDTreeRespectWildIgnore=1
 let NERDTreeQuitOnOpen = 1
@@ -242,29 +219,16 @@ if isdirectory(s:plugged_path . "/vim-anzu")
 	nmap # <Plug>(anzu-sharp-with-echo)
 endif
 
-" Improve grep
-" Plug 'dkprice/vim-easygrep'
-" let g:EasyGrepReplaceWindowMode = 2
-
 " Generate ctags files
 " Plug 'ludovicchabant/vim-gutentags'
 " let g:gutentags_enabled = 0
 
-" Fuzzy finder
-" Plug 'junegunn/fzf.vim'
-
-" Vim ghost
-" Plug 'https://github.com/raghur/vim-ghost'
-
 " Extra functions
 Plug 'drmingdrmer/vim-toggle-quickfix'
 Plug 'jiangmiao/auto-pairs'
-	" Surround object
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-repeat'
-	" UI Color picker
-" Plug 'DougBeney/pickachu'
 
 " Languages
 
@@ -291,17 +255,11 @@ let g:vimtex_view_general_viewer = 'okular'
 " Dart
 Plug 'tiagofumo/dart-vim-flutter-layout'
 
-" Plug 'MaskRay/ccls'
-
 " Some plugin depenencies
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'habamax/vim-godot'
-
-" Plug 'caenrique/nvim-toggle-terminal'
-
-" Plug 'edugomez102/vim-wakatime'
 
 Plug 'tpope/vim-fugitive'
 autocmd FileType fugitive nmap do dd<c-w>k
@@ -355,10 +313,8 @@ set wildmenu
 set wildignorecase
 set showcmd
 set cursorline
-" hi CursorLine guibg=NONE ctermbg=NONE
 set showmatch 
 set title
-	" para que el cursor se quede a 5 lineas del borde de la pantalla
 set so=3
 
 " Wrap Config
@@ -382,16 +338,6 @@ hi NonText ctermfg=239
 
 " Window separation char
 set fillchars+=vert:\▏
-
-" ┌────────────────┐
-" │ Number options │
-" └────────────────┘
-" set number relativenumber
-" augroup numbertoggle
-" 	autocmd!
-" 	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-" 	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-" augroup END
 
 
 " ┌──────────────┐
@@ -746,40 +692,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" ┌───────────┐
-" │ Functions │
-" └───────────┘
-function! TodoGrep()
-	tabedit %
-	:Grep -w TODO
-endfunction
-
-command! Todo call TodoGrep()
-" Funcion para buscar en todos los buffers
-" function! BuffersList()
-"   let all = range(0, bufnr('$'))
-"   let res = []
-"   for b in all
-"     if buflisted(b)
-"       call add(res, bufname(b))
-"     endif
-"   endfor
-"   return res
-" endfunction
-
-" function! GrepBuffers (expression)
-"   exec 'vimgrep/'.a:expression.'/ '.join(BuffersList())
-" endfunction
-
-" command! -nargs=+ GrepBufs call GrepBuffers(<q-args>)
-
-command! -nargs=+ DeleteFiles call delete('<q-args>')
-
-function! Reformat()
-	%s/\r//g
-	%retab!
-endfunction
-
 " ┌──────────────┐
 " │ Dictionaries │
 " └──────────────┘
@@ -789,12 +701,13 @@ set dictionary+=/usr/share/dict/american-english
 " ┌────────────┐
 " │ Spellcheck │
 " └────────────┘
+" TODO: move
 " setlocal spell
-set spelllang=en_gb
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+" set spelllang=en_gb
+" inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " inoremap <C-l>l <Esc>u2z=gi
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=161
+" hi clear SpellBad
+" hi SpellBad cterm=underline ctermfg=161
 " nmap <f4> :set spell! <bar> set spelllang=es<cr>
 
 " ┌──────────┐
@@ -817,7 +730,6 @@ runtime! ftplugin/man.vim
 " ┌──────┐
 " │ Misc │
 " └──────┘
-" map <F9> :NeomakeSh viewnior ~/Pictures/code/csscolosr.png<cr>
 
 tnoremap jk <c-\><c-n>
 if has("win32")
