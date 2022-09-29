@@ -1,3 +1,5 @@
+# DISCONTINUED !!!! check https://github.com/edugomez102/dotfiles/tree/master/.config/nvim
+
 # 😎My vim config😎
 
 ![exit vim](nojoke.png)
